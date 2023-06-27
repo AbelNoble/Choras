@@ -9,21 +9,21 @@ class CourseListSpiderSpider(scrapy.Spider):
 
     # Maybe later on have a list of schools and then call this scraper for each school
     # prior to the start of each semester
-    school = 'uofm'
+    school = 'university_of_michigan'
 
     def parse(self, response):
         # Extract the parent tag name (e.g., Fall 2023)
-        semester = response.xpath('//*[@id="block-ro-content"]/article/div/div/ul[1]/li/text()[1]').get().rstrip(":")
+        semester = response.xpath('//*[@id="block-ro-content"]/article/div/div/ul[1]/li/text()[1]').get()
 
         # Extract the link to the CSV file
         csv_data = response.xpath('//*[@id="block-ro-content"]/article/div/div/ul[1]/li/a[4]/@href').get()
 
         if semester and csv_data:
             # Create a filename based on the parent tag
-            filename = f'{semester.lower().replace(" ", "")}.csv'
+            filename = f'{semester.lower().replace(" ", "").replace(":", "")}.csv'
             
             # Specify the custom directory path
-            custom_directory = '/Users/abelnoble/Desktop/Choras/database/' # + self.school
+            custom_directory = '/Users/abelnoble/Desktop/Choras/database/' + self.school + '/'
 
             # Save the CSV file in the custom directory
             file_path = os.path.join(custom_directory, filename)
