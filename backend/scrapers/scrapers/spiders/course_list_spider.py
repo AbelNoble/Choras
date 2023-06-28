@@ -23,7 +23,7 @@ class CourseListSpiderSpider(scrapy.Spider):
             filename = f'{semester.lower().replace(" ", "").replace(":", "")}.csv'
             
             # Specify the custom directory path
-            custom_directory = '/Users/abelnoble/Desktop/Choras/database/' + self.school + '/'
+            custom_directory = '../../../../database/' + self.school + '/'
 
             # Save the CSV file in the custom directory
             file_path = os.path.join(custom_directory, filename)
