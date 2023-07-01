@@ -8,6 +8,8 @@ data = data.loc[:, ~data.columns.str.contains('^Unnamed')]
 data = data.drop(['Term', 'Session', 'Codes', 'S', 'SU'], axis=1)
 print('\nRemoved Irrelevant Columns')
 
+# Change the Session and Date so that to determine regular or partial semester
+
 # Create new days column
 days_mapping = {
     'M': 'Monday',
@@ -36,6 +38,8 @@ data['Component'] = data['Component'].map(component_mapping)
 data = data[data['Component'] != 'CLN']
 data = data[data['Component'].notna()]
 print('\nInserted New Component Column')
+
+# Change location if it is "ARR" to "To be determined"
 
 # Move section to 2nd row
 cols = list(data.columns)
