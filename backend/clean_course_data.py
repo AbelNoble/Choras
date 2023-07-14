@@ -1,4 +1,5 @@
 import pandas as pd
+import re
 
 # Read the CSV file
 data = pd.read_csv('../database/university_of_michigan/fall2023.csv')
@@ -9,6 +10,12 @@ data = data.drop(['Term', 'Session', 'Codes', 'S', 'SU'], axis=1)
 print('\nRemoved Irrelevant Columns')
 
 # Change the Session and Date so that to determine regular or partial semester
+data['Class Duration'] = data.apply(
+    lambda row: 'Full Term' if row['Start Date'] == '08/28/2023' and row['End Date'] == '12/06/2023' else 'Partial Term',
+    axis=1
+)
+data = data.drop(['Start Date', 'End Date'], axis=1)
+print('\nChanged Duration to Full or Partial')
 
 # Create new days column
 days_mapping = {
@@ -40,6 +47,12 @@ data = data[data['Component'].notna()]
 print('\nInserted New Component Column')
 
 # Change location if it is "ARR" to "To be determined"
+data.loc[data['Location'] == 'ARR', 'Location'] = 'To Be Determined'
+print('\nChanged Location for ARR classes')
+
+# Change subject so that it does not contain shortened version
+data['Subject'] = data['Subject'].apply(lambda x: re.sub(r'\(.*\)', '', x).strip())
+print('\nRemoved shortened subject form')
 
 # Move section to 2nd row
 cols = list(data.columns)
