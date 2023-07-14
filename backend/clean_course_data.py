@@ -32,6 +32,10 @@ data.insert(12, 'Days', data[day_columns].apply(
 data = data.drop(day_columns, axis=1)
 print('\nInserted New Days Column')
 
+# Substitute "not available" for null values in the Days column
+data['Days'] = data['Days'].replace('', 'not available')
+print('\nUpdated Days Info')
+
 # Expanded components and removed clinical experience classes
 component_mapping = {
     'LAB': 'Lab',
@@ -47,12 +51,21 @@ data = data[data['Component'].notna()]
 print('\nInserted New Component Column')
 
 # Change location if it is "ARR" to "To be determined"
-data.loc[data['Location'] == 'ARR', 'Location'] = 'To Be Determined'
+data.loc[data['Location'] == 'ARR', 'Location'] = 'to be determined'
 print('\nChanged Location for ARR classes')
 
 # Change subject so that it does not contain shortened version
 data['Subject'] = data['Subject'].apply(lambda x: re.sub(r'\(.*\)', '', x).strip())
 print('\nRemoved shortened subject form')
+
+# Substitute "not available" for null values in the "Instructor" column
+data['Instructor'] = data['Instructor'].fillna('not available')
+data['Instructor'] = data['Instructor'].apply(lambda x: ', '.join(['Professor ' + name.strip() for name in x.split(',')]) if x != 'not available' else x)
+print('\nUpdated Instructor Info')
+
+# Change time if it is "ARR" to "unknown"
+data.loc[data['Time'] == 'ARR', 'Time'] = 'unknown'
+print('\nChanged Time for ARR classes')
 
 # Move section to 2nd row
 cols = list(data.columns)
