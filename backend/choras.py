@@ -20,7 +20,7 @@ load_dotenv()
 os.environ['OPENAI_API_KEY'] = os.getenv('OPENAI_API_KEY')
 
 # sets llm **creativity**
-llm = OpenAI(temperature=1, verbose=True)
+llm = OpenAI(temperature=0.9, verbose=True)
 embeddings = OpenAIEmbeddings()
 
 # loads cleaned text file
@@ -33,10 +33,9 @@ with open(file_path, "w", encoding="utf-8") as f:
 loader = TextLoader(file_path)
 documents = loader.load()
 
+# splits by sentence and stores in chroma
 nltk_text_splitter = NLTKTextSplitter(chunk_size=1000)
-
 docs = nltk_text_splitter.create_documents([text])
-
 vectordb = Chroma.from_documents(documents=docs, embedding=embeddings)
 
 # calling an agent to help out
@@ -55,10 +54,10 @@ prompt = st.text_input('Let me help you find a class:')
 st.caption('Ask \"What\'s a 4 credit class about Architecture that I can take in the mornings?\"')
 
 if prompt:
-    print("Prompt length:", len(prompt))
     response = agent.run(prompt)
     st.write(response)
 
-    # with st.expander('Similarity Search'):
-    #     search = vectordb.similarity_search_with_score(prompt)
-    #     st.write(search[0][0].page_content)
+    st.divider()
+    with st.expander('Similarity Search'):
+        search = vectordb.similarity_search_with_score(prompt)
+        st.write(search[0][0].page_content)
