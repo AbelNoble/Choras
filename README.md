@@ -2,9 +2,10 @@
 
 *10x the speed of building a schedule.*
 
-Check out this [video demonstration](https://youtu.be/Gy0kZtHkYm8).
+Stay tuned, web app coming soon! 
 
-[![video demonstration](https://img.youtube.com/vi/Gy0kZtHkYm8/maxresdefault.jpg)](https://youtu.be/Gy0kZtHkYm8)]
+Check out this [video demonstration](https://youtu.be/1bywH6dXbJA) instead.
+
+[video demonstration](https://img.youtube.com/vi/1bywH6dXbJA/maxresdefault.jpg)](https://youtu.be/1bywH6dXbJA)
 
 
-🌸 Stay tuned, web app coming soon! 
