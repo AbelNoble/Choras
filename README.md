@@ -1,2 +1,1 @@
-Choras:
-Your AI Academic Advisor
+# Choras: Your AI Academic Advisor
