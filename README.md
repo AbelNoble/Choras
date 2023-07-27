@@ -1,6 +1,6 @@
 # 🌸 Choras: Your AI Academic Advisor
 
-*10x the speed of building a schedule.*
+*10x the speed it takes to build a schedule.*
 
 Stay tuned, web app coming soon! 
 
